@@ -2,40 +2,30 @@ import Dexie, { Table } from 'dexie';
 
 export interface Product {
   id?: number;
-
   code?: string;
   barcode?: string;
-
   name: string;
-
   stock?: number;
   price?: number;
   cost?: number;
-
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface Inventory {
   id?: number;
-
   name: string;
   description?: string;
-
   status?: 'active' | 'completed';
-
   createdAt: Date;
   updatedAt?: Date;
 }
 
 export interface InventoryItem {
   id?: number;
-
   inventoryId: number;
   productId: number;
-
   quantity: number;
-
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -1,0 +1,29 @@
+<nav
+  class="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-2 border-t border-slate-200 bg-white/90 backdrop-blur-xl"
+>
+  <div class="mx-auto flex max-w-md items-center justify-around">
+    @for (tab of tabs(); track tab.route) {
+      <a
+        [routerLink]="tab.route"
+        class="flex flex-col items-center justify-center gap-1 rounded-2xl px-5 py-2 transition-all duration-200"
+        [class.bg-blue-50]="isActive(tab.route)"
+        [class.scale-105]="isActive(tab.route)"
+      >
+        <ion-icon
+          [icon]="isActive(tab.route) ? tab.activeIcon : tab.icon"
+          class="text-[22px]"
+          [class.text-blue-600]="isActive(tab.route)"
+          [class.text-slate-500]="!isActive(tab.route)"
+        ></ion-icon>
+
+        <span
+          class="text-[11px] font-semibold"
+          [class.text-blue-600]="isActive(tab.route)"
+          [class.text-slate-500]="!isActive(tab.route)"
+        >
+          {{ tab.label }}
+        </span>
+      </a>
+    }
+  </div>
+</nav>

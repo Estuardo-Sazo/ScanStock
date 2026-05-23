@@ -1,0 +1,42 @@
+// Estilos del modal de inventarios
+ion-header {
+  --background: #ffffff;
+  --border-color: #e2e8f0;
+}
+
+ion-toolbar {
+  --background: #ffffff;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+ion-item {
+  --background: transparent;
+  --border-bottom: 1px solid #e2e8f0;
+  --padding-start: 0;
+  --padding-end: 0;
+  --min-height: auto;
+}
+
+ion-input,
+ion-textarea {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}
+
+ion-button {
+  --border-radius: 1rem;
+  --padding-start: 20px;
+  --padding-end: 20px;
+
+  &[fill='outline'] {
+    --border-color: #e2e8f0;
+    --color: #0b1c30;
+  }
+}
+
+form {
+  margin-top: 1rem;
+}

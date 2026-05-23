@@ -1,22 +1,279 @@
 /*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
+ * Global Styles - ScanStock
+ * Ionic + TailwindCSS v4
  */
 
-/* Core CSS required for Ionic components to work properly */
-@import "@ionic/angular/css/core.css";
+/* =========================
+   Ionic Core CSS
+========================= */
 
-/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/core.css";
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
-@import "@ionic/angular/css/typography.css";
-@import "@ionic/angular/css/display.css";
 
+/* =========================
+   Tailwind
+========================= */
 
-@use "tailwindcss";
+@import "tailwindcss";
+
+/* =========================
+   Google Font
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* =========================
+   Tailwind Theme
+========================= */
+
+@theme {
+
+  /* =========================
+     COLORS
+  ========================= */
+
+  --color-background: #f8f9ff;
+
+  --color-surface: #ffffff;
+  --color-surface-soft: #eff4ff;
+
+  --color-primary: #2563eb;
+  --color-primary-dark: #004ac6;
+
+  --color-secondary: #10b981;
+
+  --color-tertiary: #bc4800;
+
+  --color-text: #0b1c30;
+  --color-text-muted: #64748b;
+
+  --color-border: #e2e8f0;
+
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-danger: #dc2626;
+
+  /* =========================
+     TYPOGRAPHY
+  ========================= */
+
+  --font-main: "Poppins", sans-serif;
+
+  /* =========================
+     BORDER RADIUS
+  ========================= */
+
+  --radius-sm: 0.25rem;
+  --radius-default: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* =========================
+     SPACING
+  ========================= */
+
+  --spacing-gutter: 16px;
+}
+
+/* =========================
+   Ionic Theme Variables
+========================= */
+
+:root {
+
+  /* =========================
+     FONT
+  ========================= */
+
+  --ion-font-family: "Poppins", sans-serif;
+
+  /* =========================
+     PRIMARY
+  ========================= */
+
+  --ion-color-primary: #2563eb;
+  --ion-color-primary-rgb: 37, 99, 235;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #1d4ed8;
+  --ion-color-primary-tint: #3b82f6;
+
+  /* =========================
+     SUCCESS
+  ========================= */
+
+  --ion-color-success: #16a34a;
+
+  /* =========================
+     WARNING
+  ========================= */
+
+  --ion-color-warning: #f59e0b;
+
+  /* =========================
+     DANGER
+  ========================= */
+
+  --ion-color-danger: #dc2626;
+
+  /* =========================
+     BACKGROUND
+  ========================= */
+
+  --ion-background-color: #f8f9ff;
+
+  --ion-text-color: #0b1c30;
+
+  /* =========================
+     BORDER
+  ========================= */
+
+  --ion-border-color: #e2e8f0;
+}
+
+/* =========================
+   Base Styles
+========================= */
+
+html,
+body,
+ion-app,
+ion-content {
+  height: 100%;
+}
+
+body {
+
+  font-family: var(--font-main);
+
+  background: var(--color-background);
+
+  color: var(--color-text);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================
+   Reusable Components
+========================= */
+
+@layer components {
+
+  /* =========================
+     Cards
+  ========================= */
+
+  .card-primary {
+
+    @apply
+      bg-white
+      border
+      border-slate-200
+      rounded-3xl
+      p-5
+      shadow-sm;
+  }
+
+  /* =========================
+     Buttons
+  ========================= */
+
+  .btn-primary {
+
+    @apply
+      bg-blue-600
+      text-white
+      rounded-2xl
+      px-5
+      py-3
+      font-semibold
+      transition
+      active:scale-[0.98];
+  }
+
+  .btn-secondary {
+
+    @apply
+      bg-white
+      border
+      border-slate-200
+      text-slate-900
+      rounded-2xl
+      px-5
+      py-3
+      font-semibold;
+  }
+
+  /* =========================
+     Inputs
+  ========================= */
+
+  .input-primary {
+
+    @apply
+      w-full
+      rounded-2xl
+      border
+      border-slate-300
+      bg-white
+      px-4
+      py-3
+      text-slate-900
+      outline-none
+      focus:border-blue-600;
+  }
+
+  /* =========================
+     Badges
+  ========================= */
+
+  .badge-success {
+
+    @apply
+      rounded-full
+      bg-green-100
+      px-3
+      py-1
+      text-xs
+      font-medium
+      text-green-700;
+  }
+
+  .badge-warning {
+
+    @apply
+      rounded-full
+      bg-amber-100
+      px-3
+      py-1
+      text-xs
+      font-medium
+      text-amber-700;
+  }
+
+  /* =========================
+     Floating Action Button
+  ========================= */
+
+  .fab-primary {
+
+    @apply
+      fixed
+      bottom-6
+      right-6
+      flex
+      h-16
+      w-16
+      items-center
+      justify-center
+      rounded-full
+      bg-blue-600
+      text-white
+      shadow-lg
+      active:scale-95
+      transition;
+  }
+}
