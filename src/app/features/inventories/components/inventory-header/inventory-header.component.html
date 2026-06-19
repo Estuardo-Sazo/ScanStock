@@ -1,0 +1,64 @@
+<div
+  class="
+    sticky
+    top-0
+    z-20
+    border-b
+    border-slate-200
+    bg-white/90
+    px-5
+    pb-5
+    pt-6
+    backdrop-blur-xl
+  "
+>
+
+  <div
+    class="
+      flex
+      items-start
+      justify-between
+    "
+  >
+
+    <div>
+
+      <h1
+        class="
+          text-3xl
+          font-bold
+          text-slate-900
+        "
+      >
+        {{ inventory.name }}
+      </h1>
+
+      <p
+        class="
+          mt-1
+          text-sm
+          text-slate-500
+        "
+      >
+        {{ inventory.createdAt | date:'dd MMM yyyy' }}
+      </p>
+
+    </div>
+
+    <div
+      class="
+        rounded-full
+        bg-blue-100
+        px-4
+        py-2
+        text-sm
+        font-semibold
+        text-blue-700
+      "
+    >
+      Active
+    </div>
+
+  </div>
+
+</div>

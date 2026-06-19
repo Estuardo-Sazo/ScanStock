@@ -1,0 +1,27 @@
+<div class="p-5 pb-2">
+  <div class="flex items-center gap-3">
+    <!-- Search -->
+    <div class="relative flex-1">
+      <ion-icon
+        name="search-outline"
+        class="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-slate-400"
+      ></ion-icon>
+
+      <input
+        type="text"
+        [(ngModel)]="query"
+        (input)="onSearchChange()"
+        placeholder="Buscar SKU, nombre o código"
+        class="w-full rounded-2xl border border-slate-200 bg-white py-4 pl-12 pr-4 text-slate-900 outline-none"
+      />
+    </div>
+
+    <!-- Scan -->
+    <button
+      (click)="openScanner()"
+      class="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg"
+    >
+      <ion-icon name="scan-outline" class="text-2xl"></ion-icon>
+    </button>
+  </div>
+</div>

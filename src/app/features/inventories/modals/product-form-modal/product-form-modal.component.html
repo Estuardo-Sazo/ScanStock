@@ -1,0 +1,115 @@
+<ion-content fullscreen>
+  <div class="flex min-h-screen flex-col bg-slate-50">
+    <!-- ===================================== -->
+    <!-- Header -->
+    <!-- ===================================== -->
+
+    <div
+      class="flex items-start justify-between border-b border-slate-200 bg-white px-5 pb-5 pt-6"
+    >
+      <div>
+        <p class="text-sm text-orange-500">Producto no encontrado</p>
+
+        <h1 class="mt-2 text-3xl font-bold text-slate-900">Crear Producto</h1>
+      </div>
+
+      <!-- Close -->
+
+      <button
+        (click)="close()"
+        class="flex h-11 w-11 items-center justify-center rounded-full bg-slate-100"
+      >
+        <ion-icon name="close-outline" class="text-2xl"></ion-icon>
+      </button>
+    </div>
+
+    <!-- ===================================== -->
+    <!-- Form -->
+    <!-- ===================================== -->
+
+    <form [formGroup]="form" class="flex-1 space-y-6 p-5">
+      <!-- Barcode -->
+
+      <div>
+        <label class="mb-2 block text-sm font-semibold text-slate-700">
+          Código de barras
+        </label>
+
+        <div class="relative">
+          <ion-icon
+            name="barcode-outline"
+            class="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-slate-400"
+          ></ion-icon>
+
+          <input
+            type="text"
+            formControlName="barcode"
+            class="w-full rounded-3xl border-2 border-slate-200 bg-white py-5 pl-12 pr-4 text-lg text-slate-900 outline-none"
+          />
+        </div>
+      </div>
+
+      <!-- Name -->
+
+      <div>
+        <label class="mb-2 block text-sm font-semibold text-slate-700">
+          Nombre del producto
+        </label>
+
+        <div class="relative">
+          <ion-icon
+            name="cube-outline"
+            class="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-slate-400"
+          ></ion-icon>
+
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="Ej: Coca Cola 600ml"
+            class="w-full rounded-3xl border-2 border-slate-200 bg-white py-5 pl-12 pr-4 text-lg text-slate-900 outline-none"
+          />
+        </div>
+      </div>
+
+      <!-- SKU -->
+
+      <div>
+        <label class="mb-2 block text-sm font-semibold text-slate-700">
+          SKU (Opcional)
+        </label>
+
+        <div class="relative">
+          <ion-icon
+            name="pricetag-outline"
+            class="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-slate-400"
+          ></ion-icon>
+
+          <input
+            type="text"
+            formControlName="sku"
+            placeholder="SKU interno"
+            class="w-full rounded-3xl border-2 border-slate-200 bg-white py-5 pl-12 pr-4 text-lg text-slate-900 outline-none"
+          />
+        </div>
+      </div>
+    </form>
+
+    <!-- ===================================== -->
+    <!-- Footer -->
+    <!-- ===================================== -->
+
+    <div class="border-t border-slate-200 bg-white p-5">
+      <button
+        (click)="submit()"
+        [disabled]="form.invalid || isLoading"
+        class="w-full rounded-full bg-blue-600 py-5 text-lg font-bold text-white disabled:opacity-50"
+      >
+        @if (isLoading) {
+          Guardando...
+        } @else {
+          Crear producto
+        }
+      </button>
+    </div>
+  </div>
+</ion-content>

@@ -22,10 +22,14 @@ export interface Inventory {
 }
 
 export interface InventoryItem {
+
   id?: number;
   inventoryId: number;
   productId: number;
   quantity: number;
+  productNameSnapshot?: string;
+  barcodeSnapshot?: string;
+  skuSnapshot?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

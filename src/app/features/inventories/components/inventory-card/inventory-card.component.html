@@ -1,13 +1,16 @@
 <div
-  class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+  (click)="goToInventory()"
+  class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md active:scale-[0.99]"
 >
   <!-- Accent Bar -->
+
   <div
     class="absolute left-0 top-0 h-full w-1 rounded-l-3xl"
     [ngClass]="sidebarColor"
   ></div>
 
   <!-- Header -->
+
   <div class="flex items-start justify-between">
     <div>
       <h2 class="text-2xl font-bold text-slate-900">
@@ -20,21 +23,26 @@
     </div>
 
     <!-- Badge -->
+
     <div
       class="rounded-xl px-3 py-2 text-sm font-medium"
       [ngClass]="{
         'bg-blue-100 text-blue-700': status === 'active',
+
         'bg-green-100 text-green-700': status === 'synced',
       }"
     >
-      {{ status === 'active' ? 'Activo' : 'Sincronizado' }}
+      {{ status === "active" ? "Activo" : "Sincronizado" }}
     </div>
   </div>
 
   <!-- Footer -->
+
   <div
     class="mt-6 flex items-end justify-between border-t border-slate-100 pt-5"
   >
+    <!-- Total -->
+
     <div>
       <p class="text-xs uppercase tracking-widest text-slate-400">
         Productos escaneados
@@ -45,23 +53,28 @@
       </h3>
     </div>
 
-    <!-- Action Buttons -->
+    <!-- Actions -->
+
     <div class="flex gap-2">
+      <!-- Edit -->
+
       <button
-        (click)="edit()"
-        class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600 transition active:scale-95 hover:bg-blue-100"
+        (click)="onEditClick($event)"
+        class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600 transition hover:bg-blue-100 active:scale-95"
         title="Editar"
       >
         ✎
       </button>
 
-      <button
-        (click)="delete()"
-        class="flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-600 transition active:scale-95 hover:bg-red-100"
+      <!-- Delete -->
+
+      <!-- <button
+        (click)="onDeleteClick($event)"
+        class="flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-600 transition hover:bg-red-100 active:scale-95"
         title="Eliminar"
       >
         ✕
-      </button>
+      </button> -->
     </div>
   </div>
 </div>

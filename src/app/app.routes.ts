@@ -10,9 +10,20 @@ export const routes: Routes = [
     redirectTo: 'inventories',
     pathMatch: 'full',
   },
-  
+
   {
     path: 'inventories',
-    loadComponent: () => import('./features/inventories/pages/inventories/inventories.page').then( m => m.InventoriesPage)
+    loadComponent: () =>
+      import('./features/inventories/pages/inventories/inventories.page').then(
+        (m) => m.InventoriesPage,
+      ),
+  },
+  {
+    path: 'inventories/:id',
+
+    loadComponent: () =>
+      import('./features/inventories/pages/inventory-detail/inventory-detail.page').then(
+        (m) => m.InventoryDetailPage,
+      ),
   },
 ];

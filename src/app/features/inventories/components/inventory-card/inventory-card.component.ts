@@ -1,105 +1,199 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Inventory } from '../../../../core/database/app-db';
+
+import { Router } from '@angular/router';
+
+import {
+  Inventory,
+} from '../../../../core/database/app-db';
+
 import { InventoryService } from '../../../../core/services/inventory.service';
 
 @Component({
   selector: 'app-inventory-card',
-  templateUrl: './inventory-card.component.html',
-  styleUrls: ['./inventory-card.component.scss'],
+
   standalone: true,
-  imports: [CommonModule],
+
+  imports: [
+    CommonModule,
+  ],
+
+  templateUrl: './inventory-card.component.html',
+
+  styleUrls: ['./inventory-card.component.scss'],
 })
 export class InventoryCardComponent implements OnInit {
-  @Input() inventory?: Inventory;
-  @Input() title = '';
-  @Input() date = '';
-  @Input() total = 0;
-  @Input() status = 'active';
 
-  @Output() onEdit = new EventEmitter<Inventory>();
-  @Output() onDelete = new EventEmitter<Inventory>();
+  // =========================================
+  // Inject
+  // =========================================
+
+  private router = inject(Router);
+
+  private inventoryService = inject(
+    InventoryService
+  );
+
+  // =========================================
+  // Inputs
+  // =========================================
+
+  @Input({ required: true })
+  inventory!: Inventory;
+
+  @Input()
+  status: 'active' | 'synced' = 'active';
+
+  // =========================================
+  // Outputs
+  // =========================================
+
+  @Output()
+  onEdit = new EventEmitter<Inventory>();
+
+  @Output()
+  onDelete = new EventEmitter<Inventory>();
+
+  // =========================================
+  // State
+  // =========================================
 
   productCount = 0;
-  colors = ['bg-blue-500', 'bg-green-500', 'bg-orange-500', 'bg-purple-500'];
+
+  private colors = [
+    'bg-blue-500',
+    'bg-green-500',
+    'bg-orange-500',
+    'bg-purple-500',
+  ];
+
   colorIndex = 0;
 
-  constructor(private inventoryService: InventoryService) {}
+  // =========================================
+  // Lifecycle
+  // =========================================
 
   ngOnInit() {
-    if (this.inventory) {
-      this.loadProductCount();
-      // Asignar color basado en inventoryId
-      this.colorIndex = (this.inventory.id || 0) % this.colors.length;
-    }
+
+    this.loadProductCount();
+
+    this.colorIndex =
+      (this.inventory.id || 0)
+      % this.colors.length;
   }
 
-  /**
-   * Cargar cantidad de productos del inventario
-   */
+  // =========================================
+  // Load product count
+  // =========================================
+
   loadProductCount() {
-    if (this.inventory?.id) {
-      this.inventoryService.countProducts(this.inventory.id).subscribe({
+
+    if (!this.inventory.id) {
+
+      return;
+    }
+
+    this.inventoryService
+      .countProducts(this.inventory.id)
+      .subscribe({
+
         next: (count) => {
+
           this.productCount = count;
         },
+
         error: (error) => {
-          console.error('Error al contar productos:', error);
+
+          console.error(
+            'Error counting products:',
+            error
+          );
         },
       });
-    }
   }
 
-  /**
-   * Emitir evento de edición
-   */
-  edit() {
-    if (this.inventory) {
-      this.onEdit.emit(this.inventory);
+  // =========================================
+  // Navigation
+  // =========================================
+
+  goToInventory() {
+
+    if (!this.inventory.id) {
+
+      return;
     }
+
+    this.router.navigate([
+      '/inventories',
+      this.inventory.id,
+    ]);
   }
 
-  /**
-   * Emitir evento de eliminación
-   */
-  delete() {
-    if (this.inventory) {
-      this.onDelete.emit(this.inventory);
-    }
+  // =========================================
+  // Edit
+  // =========================================
+
+  onEditClick(event: Event) {
+
+    event.stopPropagation();
+
+    this.onEdit.emit(this.inventory);
   }
 
-  /**
-   * Obtener nombre a mostrar
-   */
+  // =========================================
+  // Delete
+  // =========================================
+
+  onDeleteClick(event: Event) {
+
+    event.stopPropagation();
+
+    this.onDelete.emit(this.inventory);
+  }
+
+  // =========================================
+  // Computed
+  // =========================================
+
   get displayName(): string {
-    return this.inventory?.name || this.title;
+
+    return this.inventory.name;
   }
 
-  /**
-   * Obtener fecha a mostrar
-   */
   get displayDate(): string {
-    if (this.inventory?.createdAt) {
-      return new Date(this.inventory.createdAt).toLocaleDateString('es-ES', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      });
+
+    if (!this.inventory.createdAt) {
+
+      return '';
     }
-    return this.date;
+
+    return new Date(
+      this.inventory.createdAt
+    ).toLocaleDateString('es-ES', {
+
+      year: 'numeric',
+
+      month: 'short',
+
+      day: 'numeric',
+    });
   }
 
-  /**
-   * Obtener total a mostrar
-   */
   get displayTotal(): number {
-    return this.productCount || this.total;
+
+    return this.productCount;
   }
 
-  /**
-   * Obtener color de la barra lateral
-   */
   get sidebarColor(): string {
+
     return this.colors[this.colorIndex];
   }
 }
