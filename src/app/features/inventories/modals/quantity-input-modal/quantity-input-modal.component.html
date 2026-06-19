@@ -18,25 +18,19 @@
         }
       </div>
 
-      <button
-        (click)="close()"
-        class="ml-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500"
-      >
-        <ion-icon name="close-outline" class="text-xl"></ion-icon>
-      </button>
+      <ion-button fill="clear" color="medium" (click)="close()" class="mt-0.5">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
     </div>
 
-    <!-- Display -->
-    <div class="flex flex-1 flex-col px-5 pt-4">
+    <div class="flex flex-1 flex-col px-4 pt-4">
 
-      <!-- Cantidad en pantalla -->
-      <div class="mb-2">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">
-          {{ mode === 'set' ? 'Nueva cantidad' : 'Cantidad a agregar' }}
-        </p>
-      </div>
+      <!-- Display -->
+      <p class="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+        {{ mode === 'set' ? 'Nueva cantidad total' : 'Cantidad a agregar' }}
+      </p>
 
-      <div class="flex items-center justify-between rounded-2xl border-2 border-slate-100 bg-slate-50 px-6 py-4">
+      <div class="mb-3 flex items-center justify-between rounded-2xl bg-slate-50 px-5 py-3 ring-1 ring-slate-200">
         <span
           class="text-5xl font-bold tracking-tight transition-all"
           [class.text-blue-600]="numericValue > 0"
@@ -44,68 +38,74 @@
         >
           {{ displayValue }}
         </span>
-
-        <button
-          (click)="backspace()"
-          class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-slate-500 shadow-sm transition active:scale-95"
-        >
-          <ion-icon name="backspace-outline" class="text-2xl"></ion-icon>
-        </button>
+        <ion-button fill="clear" color="medium" (click)="backspace()">
+          <ion-icon slot="icon-only" name="backspace-outline"></ion-icon>
+        </ion-button>
       </div>
 
       <!-- Quick add row -->
-      <div class="mt-3 grid grid-cols-3 gap-2">
+      <div class="mb-4 grid grid-cols-3 gap-2">
         @for(val of [1, 5, 10]; track val) {
-          <button
+          <ion-button
+            fill="outline"
+            color="primary"
             (click)="quickAdd(val)"
-            class="rounded-xl border border-blue-100 bg-blue-50 py-2.5 text-sm font-semibold text-blue-700 transition active:scale-95 active:bg-blue-100"
+            style="--border-radius: 14px; height: 42px; font-size: 14px; font-weight: 600;"
           >
             +{{ val }}
-          </button>
+          </ion-button>
         }
       </div>
 
-      <!-- Numpad -->
-      <div class="mt-4 grid grid-cols-3 gap-3">
+      <!-- Numpad grid -->
+      <div class="grid grid-cols-3 gap-2.5">
 
         @for(key of ['1','2','3','4','5','6','7','8','9']; track key) {
-          <button
+          <ion-button
+            fill="solid"
+            color="light"
             (click)="pressKey(key)"
-            class="flex h-16 items-center justify-center rounded-2xl bg-slate-100 text-2xl font-semibold text-slate-800 transition active:scale-95 active:bg-slate-200"
+            style="--border-radius: 16px; --background: #f1f5f9; --color: #0f172a; height: 64px; font-size: 24px; font-weight: 600;"
           >
             {{ key }}
-          </button>
+          </ion-button>
         }
 
-        <!-- Row: vacío, 0, borrar -->
+        <!-- Fila inferior -->
         <div></div>
 
-        <button
+        <ion-button
+          fill="solid"
+          color="light"
           (click)="pressKey('0')"
-          class="flex h-16 items-center justify-center rounded-2xl bg-slate-100 text-2xl font-semibold text-slate-800 transition active:scale-95 active:bg-slate-200"
+          style="--border-radius: 16px; --background: #f1f5f9; --color: #0f172a; height: 64px; font-size: 24px; font-weight: 600;"
         >
           0
-        </button>
+        </ion-button>
 
-        <button
+        <ion-button
+          fill="solid"
+          color="light"
           (click)="backspace()"
-          class="flex h-16 items-center justify-center rounded-2xl bg-slate-100 text-slate-500 transition active:scale-95 active:bg-slate-200"
+          style="--border-radius: 16px; --background: #f1f5f9; --color: #64748b; height: 64px;"
         >
-          <ion-icon name="backspace-outline" class="text-2xl"></ion-icon>
-        </button>
+          <ion-icon slot="icon-only" name="backspace-outline" style="font-size: 22px;"></ion-icon>
+        </ion-button>
 
       </div>
     </div>
 
-    <!-- Footer -->
-    <div class="px-5 pb-8 pt-4">
-      <button
-        (click)="confirm()"
+    <!-- Confirm button -->
+    <div class="px-4 pb-8 pt-4">
+      <ion-button
+        expand="block"
+        color="primary"
         [disabled]="numericValue <= 0"
-        class="w-full rounded-2xl bg-blue-600 py-4 text-base font-semibold text-white shadow-sm shadow-blue-200 transition active:bg-blue-700 disabled:opacity-40"
+        (click)="confirm()"
+        style="--border-radius: 16px; height: 56px; font-size: 16px; font-weight: 600; --box-shadow: none;"
       >
         {{ confirmLabel }}
-      </button>
+      </ion-button>
     </div>
 
   </div>

@@ -1,6 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ModalController, IonContent, IonIcon } from '@ionic/angular/standalone';
+import { ModalController, IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { closeOutline, backspaceOutline, checkmarkOutline } from 'ionicons/icons';
 import { Product } from '../../../../core/database/app-db';
@@ -8,7 +8,7 @@ import { Product } from '../../../../core/database/app-db';
 @Component({
   selector: 'app-quantity-input-modal',
   standalone: true,
-  imports: [CommonModule, IonContent, IonIcon],
+  imports: [CommonModule, IonContent, IonIcon, IonButton],
   templateUrl: './quantity-input-modal.component.html',
 })
 export class QuantityInputModalComponent {

@@ -5,8 +5,9 @@ import { CommonModule } from '@angular/common';
 
 import { ActivatedRoute } from '@angular/router';
 
-import { IonContent, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
+import { scanOutline, cubeOutline, addOutline } from 'ionicons/icons';
 
 import { InventoryService } from '../../../../core/services/inventory.service';
 
@@ -40,6 +41,7 @@ import { ScannedProductCardComponent } from '../../components/scanned-product-ca
   styleUrls: ['./inventory-detail.page.scss'],
   imports: [
     IonIcon,
+    IonButton,
     CommonModule,
     IonContent,
     BottomNavbarComponent,
@@ -98,9 +100,7 @@ export class InventoryDetailPage implements OnInit {
   });
 
   constructor() {
-    addIcons({
-      scanOutline: 'scan-outline',
-    });
+    addIcons({ scanOutline, cubeOutline, addOutline });
   }
 
   // =========================================

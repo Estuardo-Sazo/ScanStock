@@ -21,43 +21,67 @@
 
     @if(search().trim().length > 0) {
       <div class="px-5 pb-2">
-        <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
 
-          <!-- Resultados -->
-          @for(product of searchResults(); track product.id) {
-            <button
-              (click)="selectProduct(product)"
-              class="flex w-full items-center justify-between border-b border-slate-100 px-4 py-3.5 transition active:bg-slate-50"
-            >
-              <div class="min-w-0 text-left">
-                <p class="truncate text-sm font-semibold text-slate-900">{{ product.name }}</p>
-                @if(product.code || product.barcode) {
-                  <p class="mt-0.5 text-xs text-slate-400">{{ product.code || product.barcode }}</p>
-                }
+        <!-- Resultados encontrados -->
+        @if(searchResults().length > 0) {
+          <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            @for(product of searchResults(); track product.id; let last = $last) {
+              <div
+                class="flex items-center gap-3 px-4 py-3"
+                [class.border-b]="!last"
+                [class.border-slate-100]="!last"
+              >
+                <!-- Ícono producto -->
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100">
+                  <ion-icon name="cube-outline" class="text-lg text-slate-400"></ion-icon>
+                </div>
+
+                <!-- Info -->
+                <div class="min-w-0 flex-1">
+                  <p class="truncate text-sm font-semibold text-slate-900">{{ product.name }}</p>
+                  @if(product.code || product.barcode) {
+                    <p class="mt-0.5 truncate text-xs text-slate-400">
+                      {{ product.code ? 'SKU: ' + product.code : product.barcode }}
+                    </p>
+                  }
+                </div>
+
+                <!-- Botón agregar -->
+                <ion-button
+                  fill="solid"
+                  color="primary"
+                  size="small"
+                  (click)="selectProduct(product)"
+                  style="--border-radius: 10px; --box-shadow: none; height: 36px; font-size: 13px; font-weight: 600;"
+                >
+                  Agregar
+                </ion-button>
               </div>
-              <span class="ml-3 shrink-0 rounded-xl bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white">
-                Agregar
-              </span>
-            </button>
-          }
+            }
+          </div>
+        }
 
-          <!-- Sin resultados -->
-          @if(searchResults().length === 0) {
-            <div class="px-4 py-3.5 text-sm text-slate-400">
-              Sin resultados para "{{ search() }}"
-            </div>
-          }
+        <!-- Sin resultados -->
+        @if(searchResults().length === 0) {
+          <div class="mb-2 rounded-2xl border border-slate-200 bg-white px-4 py-4 text-center">
+            <p class="text-sm text-slate-400">Sin resultados para <span class="font-medium text-slate-600">"{{ search() }}"</span></p>
+          </div>
+        }
 
-          <!-- Crear nuevo -->
-          <button
+        <!-- Crear nuevo -->
+        <div class="mt-2">
+          <ion-button
+            expand="block"
+            fill="outline"
+            color="primary"
             (click)="createFromSearch()"
-            class="flex w-full items-center justify-center gap-2 border-t border-slate-100 bg-slate-50 px-4 py-3.5 text-sm font-semibold text-blue-600 transition active:bg-slate-100"
+            style="--border-radius: 14px; --box-shadow: none; height: 46px; font-size: 14px; font-weight: 600;"
           >
-            <span class="text-lg leading-none">+</span>
+            <ion-icon slot="start" name="add-outline"></ion-icon>
             Crear "{{ search() }}"
-          </button>
-
+          </ion-button>
         </div>
+
       </div>
     }
 
