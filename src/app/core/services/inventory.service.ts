@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { db, Inventory, InventoryItem, Product } from '../database/app-db';
-import { Observable, from, BehaviorSubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable, from, BehaviorSubject ,of} from 'rxjs';
+import { map, tap ,switchMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class InventoryService {
     return from(db.inventories.toArray()).pipe(
       tap((inventories) => {
         this.inventoriesSubject.next(inventories);
-      })
+      }),
     );
   }
 
@@ -52,7 +52,7 @@ export class InventoryService {
     };
 
     return from(db.inventories.add(newInventory)).pipe(
-      tap(() => this.loadInventories().subscribe())
+      tap(() => this.loadInventories().subscribe()),
     );
   }
 
@@ -66,7 +66,7 @@ export class InventoryService {
     };
 
     return from(db.inventories.update(id, updated)).pipe(
-      tap(() => this.loadInventories().subscribe())
+      tap(() => this.loadInventories().subscribe()),
     );
   }
 
@@ -78,32 +78,35 @@ export class InventoryService {
       tap(() => {
         db.inventoryItems.where('inventoryId').equals(id).delete();
         this.loadInventories().subscribe();
-      })
+      }),
     );
+  }
+
+  removeInventoryItem(inventoryItemId: number): Observable<void> {
+    return from(db.inventoryItems.delete(inventoryItemId));
   }
 
   /**
    * Obtener items de un inventario con detalles de productos
    */
-  getInventoryItems(inventoryId: number): Observable<
-    (InventoryItem & { product?: Product })[]
-  > {
+  getInventoryItems(
+    inventoryId: number,
+  ): Observable<(InventoryItem & { product?: Product })[]> {
     return from(
-      db.inventoryItems
-        .where('inventoryId')
-        .equals(inventoryId)
-        .toArray()
+      db.inventoryItems.where('inventoryId').equals(inventoryId).toArray(),
     ).pipe(
-      map((items) =>
-        Promise.all(
-          items.map(async (item) => ({
-            ...item,
-            product: await db.products.get(item.productId),
-          }))
-        )
+      switchMap((items) =>
+        items.length === 0
+          ? of([])
+          : from(
+              Promise.all(
+                items.map(async (item) => ({
+                  ...item,
+                  product: await db.products.get(item.productId),
+                })),
+              ),
+            ),
       ),
-      map((promise) => from(promise)),
-      map((promise) => promise as any)
     );
   }
 
@@ -112,7 +115,7 @@ export class InventoryService {
    */
   countProducts(inventoryId: number): Observable<number> {
     return from(
-      db.inventoryItems.where('inventoryId').equals(inventoryId).count()
+      db.inventoryItems.where('inventoryId').equals(inventoryId).count(),
     );
   }
 
@@ -122,7 +125,7 @@ export class InventoryService {
   addProductToInventory(
     inventoryId: number,
     productId: number,
-    quantity: number
+    quantity: number,
   ): Observable<number> {
     const item: InventoryItem = {
       inventoryId,
@@ -140,13 +143,13 @@ export class InventoryService {
    */
   updateProductQuantity(
     inventoryItemId: number,
-    quantity: number
+    quantity: number,
   ): Observable<number> {
     return from(
       db.inventoryItems.update(inventoryItemId, {
         quantity,
         updatedAt: new Date(),
-      })
+      }),
     );
   }
 
@@ -155,5 +158,68 @@ export class InventoryService {
    */
   removeProductFromInventory(inventoryItemId: number): Observable<void> {
     return from(db.inventoryItems.delete(inventoryItemId));
+  }
+
+  findById(id: number): Promise<Inventory | undefined> {
+    return db.inventories.get(id);
+  }
+
+  async addOrUpdateItem(data: {
+    inventoryId: number;
+    productId: number;
+    quantity: number;
+    productNameSnapshot?: string;
+    barcodeSnapshot?: string;
+    skuSnapshot?: string;
+  }) {
+    try {
+      // =====================================
+      // Buscar si ya existe
+      // =====================================
+
+      const existingItem = await db.inventoryItems
+        .where('[inventoryId+productId]')
+        .equals([data.inventoryId, data.productId])
+        .first();
+
+      // =====================================
+      // EXISTE
+      // SUMAR
+      // =====================================
+
+      if (existingItem) {
+        const newQuantity = existingItem.quantity + data.quantity;
+
+        await db.inventoryItems.update(
+          existingItem.id!,
+
+          {
+            quantity: newQuantity,
+          },
+        );
+
+        return;
+      }
+
+      // =====================================
+      // NO EXISTE
+      // CREAR
+      // =====================================
+
+      await db.inventoryItems.add({
+        inventoryId: data.inventoryId,
+        productId: data.productId,
+        quantity: data.quantity,
+        productNameSnapshot: data.productNameSnapshot,
+        barcodeSnapshot: data.barcodeSnapshot,
+        skuSnapshot: data.skuSnapshot,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    } catch (error) {
+      console.error('Error addOrUpdateItem:', error);
+
+      throw error;
+    }
   }
 }

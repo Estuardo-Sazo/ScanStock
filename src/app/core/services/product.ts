@@ -25,7 +25,7 @@ export class ProductService {
 
     return await db.products
       .filter((product) =>
-        product.name?.toLowerCase().includes(term.toLowerCase()),
+        !!product.name?.toLowerCase().includes(term.toLowerCase()),
       )
       .limit(20)
       .toArray();
@@ -39,21 +39,20 @@ export class ProductService {
     return await db.products
       .filter((product) => {
         return (
-          product.name?.toLowerCase().includes(cleanTerm) ||
-          product.code?.toLowerCase().includes(cleanTerm) ||
-          product.barcode?.toLowerCase().includes(cleanTerm)
+          !!product.name?.toLowerCase().includes(cleanTerm) ||
+          !!product.code?.toLowerCase().includes(cleanTerm) ||
+          !!product.barcode?.toLowerCase().includes(cleanTerm)
         );
       })
       .limit(20)
       .toArray();
   }
 
-  async create(product: Product) {
-    return await db.products.add({
-      ...product,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+  async create(product: Product): Promise<Product> {
+    const now = new Date();
+    const data: Product = { ...product, createdAt: now, updatedAt: now };
+    const id = await db.products.add(data);
+    return { ...data, id: id as number };
   }
   async update(id: number, data: Partial<Product>) {
     return await db.products.update(id, {
@@ -69,4 +68,14 @@ export class ProductService {
   async delete(id: number) {
     return await db.products.delete(id);
   }
+
+  findProduct(search: string): Promise<Product | null> {
+    return db.products
+      .where('barcode')
+      .equals(search.trim())
+      .first()
+      .then((product) => product || null);
+  }
+
+  
 }
