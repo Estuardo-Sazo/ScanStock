@@ -17,6 +17,7 @@ import {
   barcodeOutline,
   cubeOutline,
   pricetagOutline,
+  alertCircleOutline,
 } from 'ionicons/icons';
 
 import { ProductService } from '../../../../core/services/product';
@@ -65,6 +66,10 @@ export class ProductFormModalComponent implements OnInit {
 
     sku: [''],
   });
+
+  constructor() {
+    addIcons({ closeOutline, barcodeOutline, cubeOutline, pricetagOutline, alertCircleOutline });
+  }
 
   // =========================================
   // Lifecycle

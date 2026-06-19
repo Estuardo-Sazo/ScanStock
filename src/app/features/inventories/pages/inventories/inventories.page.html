@@ -1,60 +1,64 @@
 <ion-content fullscreen>
   <div class="min-h-screen bg-slate-50 pb-32">
+
     <!-- Header -->
-    <div
-      class="sticky top-0 z-30 flex items-center justify-between border-b border-slate-200 bg-white/80 px-5 py-4 backdrop-blur-xl"
-    >
-      <div>
-        <h1 class="text-3xl font-bold text-blue-700">Inventarios</h1>
-
-        <p class="mt-1 text-sm text-slate-500">Administra tus conteos de inventario</p>
+    <div class="sticky top-0 z-30 border-b border-slate-100 bg-white/90 px-5 py-4 backdrop-blur-xl">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-900">Inventarios</h1>
+          <p class="mt-0.5 text-sm text-slate-400">
+            {{ inventories.length === 0 ? 'Sin inventarios' : inventories.length + ' inventario' + (inventories.length > 1 ? 's' : '') }}
+          </p>
+        </div>
       </div>
-
-      <button
-        class="flex h-10 w-10 items-center justify-center rounded-full text-slate-500"
-      >
-        ⋮
-      </button>
     </div>
 
     <!-- Content -->
-    <div class="flex flex-col gap-5 p-5">
+    <div class="flex flex-col gap-4 p-5">
+
       <!-- Loading -->
       @if(isLoading) {
-
-      <div class="flex items-center justify-center py-16">
-        <p class="text-slate-500">Cargando inventarios...</p>
-      </div>
-
+        <div class="flex items-center justify-center py-20">
+          <div class="flex flex-col items-center gap-3">
+            <div class="h-8 w-8 animate-spin rounded-full border-2 border-blue-600 border-t-transparent"></div>
+            <p class="text-sm text-slate-400">Cargando inventarios...</p>
+          </div>
+        </div>
       }
 
       <!-- Empty -->
       @else if(inventories.length === 0) {
-
-      <div class="flex flex-col items-center justify-center py-16 text-center">
-        <p class="mb-5 text-slate-500">No hay inventarios creados</p>
-
-        <button (click)="openCreateModal()" class="btn-primary px-6 py-3 h-12 w-auto">
-          Crear Inventario
-        </button>
-      </div>
-
+        <div class="flex flex-col items-center justify-center py-24 text-center">
+          <div class="mb-5 flex h-20 w-20 items-center justify-center rounded-3xl bg-slate-100">
+            <ion-icon name="albums-outline" class="text-4xl text-slate-400"></ion-icon>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900">Sin inventarios</h2>
+          <p class="mt-2 max-w-xs text-sm leading-relaxed text-slate-500">
+            Crea tu primer inventario para comenzar a contar productos.
+          </p>
+          <button
+            (click)="openCreateModal()"
+            class="mt-6 rounded-2xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-blue-200 transition active:bg-blue-700"
+          >
+            Crear inventario
+          </button>
+        </div>
       }
 
       <!-- List -->
-      @else { @for( inventory of inventories; track inventory.id ) {
+      @else {
+        @for(inventory of inventories; track inventory.id) {
+          <app-inventory-card
+            [inventory]="inventory"
+            (onEdit)="openEditModal($event)"
+            (onDelete)="deleteInventory($event.id!)"
+          />
+        }
+      }
 
-      <app-inventory-card
-        [inventory]="inventory"
-        (onEdit)="openEditModal($event)"
-        (onDelete)="deleteInventory($event.id!)"
-      />
-
-      } }
     </div>
   </div>
 
   <app-floating-action-button (clickFab)="openCreateModal()" />
-
   <app-bottom-navbar />
 </ion-content>

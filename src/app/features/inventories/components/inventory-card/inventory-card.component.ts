@@ -8,8 +8,10 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-
 import { Router } from '@angular/router';
+import { IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { createOutline, chevronForwardOutline } from 'ionicons/icons';
 
 import {
   Inventory,
@@ -22,15 +24,17 @@ import { InventoryService } from '../../../../core/services/inventory.service';
 
   standalone: true,
 
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule, IonIcon],
 
   templateUrl: './inventory-card.component.html',
 
   styleUrls: ['./inventory-card.component.scss'],
 })
 export class InventoryCardComponent implements OnInit {
+
+  constructor() {
+    addIcons({ createOutline, chevronForwardOutline });
+  }
 
   // =========================================
   // Inject

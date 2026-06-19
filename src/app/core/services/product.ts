@@ -50,7 +50,13 @@ export class ProductService {
 
   async create(product: Product): Promise<Product> {
     const now = new Date();
-    const data: Product = { ...product, createdAt: now, updatedAt: now };
+    const data: Product = {
+      ...product,
+      barcode: product.barcode?.trim() || undefined,
+      code: product.code?.trim() || undefined,
+      createdAt: now,
+      updatedAt: now,
+    };
     const id = await db.products.add(data);
     return { ...data, id: id as number };
   }

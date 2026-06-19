@@ -1,44 +1,43 @@
-<div class="rounded-3xl bg-white p-5 shadow-sm">
-  <div class="flex items-start justify-between">
-    <!-- Info -->
+<div class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100">
+  <div class="flex items-start justify-between gap-3">
 
-    <div>
-      <h2 class="text-lg font-bold text-slate-900">
-        {{ item.productNameSnapshot }}
+    <!-- Info -->
+    <div class="min-w-0 flex-1">
+      <h2 class="truncate text-base font-semibold text-slate-900">
+        {{ item.productNameSnapshot || 'Producto sin nombre' }}
       </h2>
 
-      <p class="mt-1 text-sm text-slate-500">
-        SKU:
-        {{ item.skuSnapshot }}
-      </p>
+      @if(item.skuSnapshot || item.barcodeSnapshot) {
+        <p class="mt-0.5 text-xs text-slate-400">
+          {{ item.skuSnapshot ? 'SKU: ' + item.skuSnapshot : item.barcodeSnapshot }}
+        </p>
+      }
     </div>
 
-    <!-- Quantity -->
-
-    <div class="text-right">
-      <p class="text-3xl font-bold text-blue-600">
-        {{ item.quantity }}
-      </p>
-
-      <p class="text-xs text-slate-500">units</p>
+    <!-- Quantity badge -->
+    <div class="flex flex-col items-end shrink-0">
+      <span class="text-3xl font-bold text-blue-600 leading-none">{{ item.quantity }}</span>
+      <span class="mt-0.5 text-[10px] font-medium uppercase tracking-wider text-slate-400">uds.</span>
     </div>
+
   </div>
 
   <!-- Actions -->
-
-  <div class="mt-5 flex justify-end gap-3">
+  <div class="mt-4 flex justify-end gap-2 border-t border-slate-50 pt-3">
     <button
       (click)="edit.emit(item)"
-      class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-600"
+      class="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition active:scale-95"
+      title="Editar cantidad"
     >
-      <ion-icon name="create-outline"></ion-icon>
+      <ion-icon name="create-outline" class="text-lg"></ion-icon>
     </button>
 
     <button
       (click)="delete.emit(item)"
-      class="flex h-11 w-11 items-center justify-center rounded-2xl bg-red-50 text-red-500"
+      class="flex h-9 w-9 items-center justify-center rounded-xl bg-red-50 text-red-500 transition active:scale-95"
+      title="Eliminar"
     >
-      <ion-icon name="trash-outline"></ion-icon>
+      <ion-icon name="trash-outline" class="text-lg"></ion-icon>
     </button>
   </div>
 </div>
