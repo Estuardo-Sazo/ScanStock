@@ -167,8 +167,6 @@ export class InventoryDetailPage implements OnInit {
     const modal = await this.modalController.create({
       component: QuantityInputModalComponent,
       componentProps: { product },
-      breakpoints: [0, 0.5],
-      initialBreakpoint: 0.5,
     });
 
     await modal.present();
@@ -220,8 +218,6 @@ export class InventoryDetailPage implements OnInit {
         currentQuantity: item.quantity,
         quantity: item.quantity,
       },
-      breakpoints: [0, 0.6],
-      initialBreakpoint: 0.6,
     });
 
     await modal.present();
