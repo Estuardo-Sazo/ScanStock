@@ -134,6 +134,27 @@
 }
 
 /* =========================
+   Button Reset
+   Ionic normalize.css overrides <button> base styles before Tailwind loads.
+   This reset lets Tailwind utility classes take full effect.
+========================= */
+
+button:not([class*="ion-"]):not(ion-button) {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================
    Base Styles
 ========================= */
 
