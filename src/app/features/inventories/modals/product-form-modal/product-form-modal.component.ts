@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ModalController, IonContent, IonIcon } from '@ionic/angular/standalone';
+import { ModalController, IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   closeOutline, barcodeOutline, cubeOutline,
@@ -13,7 +13,7 @@ import { Product } from '../../../../core/database/app-db';
 @Component({
   selector: 'app-product-form-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonContent, IonIcon],
+  imports: [CommonModule, ReactiveFormsModule, IonContent, IonIcon, IonButton],
   templateUrl: './product-form-modal.component.html',
 })
 export class ProductFormModalComponent implements OnInit {

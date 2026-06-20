@@ -64,6 +64,7 @@ export class ProductsPage implements OnInit {
   });
 
   get totalProducts() { return this.products().length; }
+  get totalWithBarcode() { return this.products().filter(p => !!p.barcode).length; }
 
   ngOnInit() { this.loadProducts(); }
 
