@@ -34,8 +34,10 @@ export const routes: Routes = [
   },
   {
     path: 'settings',
-    redirectTo: 'inventories',
-    pathMatch: 'full',
+    loadComponent: () =>
+      import('./features/settings/pages/settings/settings.page').then(
+        (m) => m.SettingsPage,
+      ),
   },
   {
     path: 'scan',

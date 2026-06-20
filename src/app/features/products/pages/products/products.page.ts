@@ -12,6 +12,7 @@ import {
 
 import { ProductService } from '../../../../core/services/product';
 import { Product } from '../../../../core/database/app-db';
+import { SettingsService } from '../../../../core/services/settings.service';
 import { BottomNavbarComponent } from '../../../../shared/components/bottom-navbar/bottom-navbar.component';
 import { FloatingActionButtonComponent } from '../../../../shared/components/floating-action-button/floating-action-button.component';
 import { ProductFormModalComponent } from '../../../inventories/modals/product-form-modal/product-form-modal.component';
@@ -31,6 +32,7 @@ export class ProductsPage implements OnInit {
   private productService = inject(ProductService);
   private modalController = inject(ModalController);
   private alertController = inject(AlertController);
+  settings = inject(SettingsService);
 
   constructor() {
     addIcons({

@@ -1,0 +1,147 @@
+<ion-content fullscreen>
+  <div class="min-h-screen bg-slate-50 pb-36">
+
+    <!-- ===================== Header ===================== -->
+    <div class="border-b border-slate-100 bg-white px-5 pb-5 pt-12">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">ScanStock</p>
+          <h1 class="mt-0.5 text-2xl font-bold text-slate-900">Ajustes</h1>
+        </div>
+        <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-100">
+          <ion-icon name="settings-outline" style="font-size: 20px; color: #64748b;"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== Moneda actual ===================== -->
+    <div class="px-5 pt-5">
+      <p class="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Moneda actual</p>
+      <div class="flex items-center gap-4 rounded-2xl bg-white px-4 py-4 ring-1 ring-slate-100">
+        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-2xl">
+          {{ current.flag }}
+        </div>
+        <div class="flex-1">
+          <p class="text-base font-bold text-slate-900">{{ current.name }}</p>
+          <p class="text-xs text-slate-400">{{ current.code }}</p>
+        </div>
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600">
+          <span class="text-sm font-bold text-white">{{ current.symbol }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== Selector de moneda ===================== -->
+    <div class="px-5 pt-5">
+      <p class="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Seleccionar moneda</p>
+
+      <!-- Buscador -->
+      <div class="mb-3 flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3">
+        <ion-icon name="search-outline" style="font-size: 16px; color: #94a3b8; flex-shrink:0;"></ion-icon>
+        <input
+          type="text"
+          [ngModel]="searchQuery()"
+          (ngModelChange)="searchQuery.set($event)"
+          placeholder="Buscar por nombre, código..."
+          class="flex-1 bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+        />
+        @if(searchQuery().length > 0) {
+          <button (click)="clearSearch()" class="flex h-5 w-5 items-center justify-center rounded-full bg-slate-200 text-slate-500">
+            <ion-icon name="close-outline" style="font-size: 13px;"></ion-icon>
+          </button>
+        }
+      </div>
+
+      <!-- Lista agrupada por región -->
+      @if(filteredCurrencies().length === 0) {
+        <div class="py-8 text-center">
+          <p class="text-sm text-slate-400">Sin resultados para "{{ searchQuery() }}"</p>
+        </div>
+      }
+
+      @for(region of regions; track region) {
+        <div class="mb-3">
+          <p class="mb-1.5 px-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+            <ion-icon name="globe-outline" style="font-size: 10px; margin-right: 3px;"></ion-icon>
+            {{ region }}
+          </p>
+          <div class="overflow-hidden rounded-2xl bg-white ring-1 ring-slate-100">
+            @for(currency of currenciesByRegion(region); track currency.code; let last = $last) {
+              <button
+                (click)="selectCurrency(currency)"
+                class="flex w-full items-center gap-3 px-4 py-3.5 transition-colors active:bg-slate-50"
+                [class.border-b]="!last"
+                [class.border-slate-100]="!last"
+              >
+                <!-- Flag -->
+                <span class="w-8 text-center text-xl leading-none">{{ currency.flag }}</span>
+
+                <!-- Info -->
+                <div class="min-w-0 flex-1 text-left">
+                  <p class="text-sm font-semibold text-slate-900">{{ currency.name }}</p>
+                  <p class="text-[11px] text-slate-400">{{ currency.code }}</p>
+                </div>
+
+                <!-- Symbol badge -->
+                <span class="shrink-0 rounded-lg bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-600">
+                  {{ currency.symbol }}
+                </span>
+
+                <!-- Check -->
+                <ion-icon
+                  [name]="isSelected(currency) ? 'checkmark-circle' : 'ellipse-outline'"
+                  [style.color]="isSelected(currency) ? '#2563eb' : '#cbd5e1'"
+                  style="font-size: 20px; flex-shrink: 0;"
+                ></ion-icon>
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- ===================== Acerca de ===================== -->
+    <div class="px-5 pt-2">
+      <p class="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Acerca de</p>
+      <div class="overflow-hidden rounded-2xl bg-white ring-1 ring-slate-100">
+
+        <div class="flex items-center gap-3 border-b border-slate-100 px-4 py-3.5">
+          <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600">
+            <ion-icon name="shield-checkmark-outline" style="font-size: 17px; color: #fff;"></ion-icon>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-slate-900">ScanStock</p>
+            <p class="text-xs text-slate-400">Gestión de inventarios offline</p>
+          </div>
+          <span class="rounded-lg bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500">
+            v{{ appVersion }}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-3 border-b border-slate-100 px-4 py-3.5">
+          <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100">
+            <ion-icon name="information-circle-outline" style="font-size: 17px; color: #64748b;"></ion-icon>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-slate-900">Base de datos</p>
+            <p class="text-xs text-slate-400">Local · IndexedDB · Sin servidor</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 px-4 py-3.5">
+          <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100">
+            <ion-icon name="cash-outline" style="font-size: 17px; color: #64748b;"></ion-icon>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-slate-900">Moneda del sistema</p>
+            <p class="text-xs text-slate-400">{{ current.name }} · {{ current.symbol }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <app-bottom-navbar />
+</ion-content>
