@@ -1,27 +1,51 @@
 <ion-content fullscreen>
-  <div class="min-h-screen bg-slate-50 pb-32">
+  <div class="min-h-screen bg-slate-50 pb-36">
 
     <!-- Header -->
-    <div class="sticky top-0 z-30 border-b border-slate-100 bg-white/90 px-5 py-4 backdrop-blur-xl">
-      <div class="flex items-center justify-between">
+    <div class="bg-white px-5 pb-5 pt-12">
+      <div class="flex items-start justify-between">
         <div>
-          <h1 class="text-2xl font-bold text-slate-900">Inventarios</h1>
-          <p class="mt-0.5 text-sm text-slate-400">
-            {{ inventories.length === 0 ? 'Sin inventarios' : inventories.length + ' inventario' + (inventories.length > 1 ? 's' : '') }}
-          </p>
+          <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">ScanStock</p>
+          <h1 class="mt-1 text-3xl font-bold text-slate-900">Inventarios</h1>
+        </div>
+        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 shadow-sm shadow-blue-200">
+          <ion-icon name="albums-outline" style="font-size: 22px; color: white;"></ion-icon>
         </div>
       </div>
+
+      <!-- Quick stats -->
+      @if(inventories.length > 0) {
+        <div class="mt-5 flex gap-3">
+          <div class="flex-1 rounded-2xl bg-slate-50 px-4 py-3">
+            <p class="text-xs font-medium text-slate-400">Total</p>
+            <p class="mt-0.5 text-2xl font-bold text-slate-900">{{ inventories.length }}</p>
+            <p class="text-[10px] text-slate-400">inventario{{ inventories.length > 1 ? 's' : '' }}</p>
+          </div>
+          <div class="flex-1 rounded-2xl bg-blue-50 px-4 py-3">
+            <p class="text-xs font-medium text-blue-400">Activos</p>
+            <p class="mt-0.5 text-2xl font-bold text-blue-700">{{ inventories.length }}</p>
+            <p class="text-[10px] text-blue-400">en progreso</p>
+          </div>
+        </div>
+      }
     </div>
 
+    <!-- Section title -->
+    @if(inventories.length > 0) {
+      <div class="px-5 pb-2 pt-5">
+        <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Recientes</p>
+      </div>
+    }
+
     <!-- Content -->
-    <div class="flex flex-col gap-4 p-5">
+    <div class="flex flex-col gap-3 px-5">
 
       <!-- Loading -->
       @if(isLoading) {
         <div class="flex items-center justify-center py-20">
           <div class="flex flex-col items-center gap-3">
             <div class="h-8 w-8 animate-spin rounded-full border-2 border-blue-600 border-t-transparent"></div>
-            <p class="text-sm text-slate-400">Cargando inventarios...</p>
+            <p class="text-sm text-slate-400">Cargando...</p>
           </div>
         </div>
       }
@@ -29,19 +53,21 @@
       <!-- Empty -->
       @else if(inventories.length === 0) {
         <div class="flex flex-col items-center justify-center py-24 text-center">
-          <div class="mb-5 flex h-20 w-20 items-center justify-center rounded-3xl bg-slate-100">
-            <ion-icon name="albums-outline" class="text-4xl text-slate-400"></ion-icon>
+          <div class="mb-5 flex h-24 w-24 items-center justify-center rounded-3xl bg-slate-100">
+            <ion-icon name="albums-outline" style="font-size: 44px; color: #94a3b8;"></ion-icon>
           </div>
-          <h2 class="text-lg font-bold text-slate-900">Sin inventarios</h2>
+          <h2 class="text-xl font-bold text-slate-900">Sin inventarios</h2>
           <p class="mt-2 max-w-xs text-sm leading-relaxed text-slate-500">
             Crea tu primer inventario para comenzar a contar productos.
           </p>
-          <button
+          <ion-button
+            color="primary"
             (click)="openCreateModal()"
-            class="mt-6 rounded-2xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-blue-200 transition active:bg-blue-700"
+            style="margin-top: 24px; --border-radius: 14px; --box-shadow: none; font-weight: 600;"
           >
+            <ion-icon slot="start" name="add-outline"></ion-icon>
             Crear inventario
-          </button>
+          </ion-button>
         </div>
       }
 

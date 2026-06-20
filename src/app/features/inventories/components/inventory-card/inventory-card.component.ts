@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { createOutline, chevronForwardOutline } from 'ionicons/icons';
+import { ellipsisHorizontalOutline, arrowForwardOutline } from 'ionicons/icons';
 
 import {
   Inventory,
@@ -33,7 +33,7 @@ import { InventoryService } from '../../../../core/services/inventory.service';
 export class InventoryCardComponent implements OnInit {
 
   constructor() {
-    addIcons({ createOutline, chevronForwardOutline });
+    addIcons({ ellipsisHorizontalOutline, arrowForwardOutline });
   }
 
   // =========================================

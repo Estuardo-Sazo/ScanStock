@@ -1,17 +1,20 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { IonFab, IonFabButton, IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { addOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-floating-action-button',
   templateUrl: './floating-action-button.component.html',
-  styleUrls: ['./floating-action-button.component.scss'],
   standalone: true,
+  imports: [IonFab, IonFabButton, IonIcon],
 })
-export class FloatingActionButtonComponent implements OnInit {
+export class FloatingActionButtonComponent {
   @Output() clickFab = new EventEmitter<void>();
 
-  constructor() {}
-
-  ngOnInit() {}
+  constructor() {
+    addIcons({ addOutline });
+  }
 
   onClick() {
     this.clickFab.emit();

@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonIcon, ModalController } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonButton, ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { albumsOutline } from 'ionicons/icons';
+import { albumsOutline, addOutline } from 'ionicons/icons';
 import { InventoryCardComponent } from '../../components/inventory-card/inventory-card.component';
 import { FloatingActionButtonComponent } from '../../../../shared/components/floating-action-button/floating-action-button.component';
 import { BottomNavbarComponent } from '../../../../shared/components/bottom-navbar/bottom-navbar.component';
@@ -17,7 +17,7 @@ import { Inventory } from '../../../../core/database/app-db';
   templateUrl: './inventories.page.html',
   styleUrls: ['./inventories.page.scss'],
   imports: [
-    IonContent, IonIcon,
+    IonContent, IonIcon, IonButton,
     CommonModule, FormsModule,
     InventoryCardComponent,
     BottomNavbarComponent,
@@ -26,7 +26,7 @@ import { Inventory } from '../../../../core/database/app-db';
 })
 export class InventoriesPage implements OnInit {
 
-  constructor() { addIcons({ albumsOutline }); }
+  constructor() { addIcons({ albumsOutline, addOutline }); }
 
   private inventoryService = inject(InventoryService);
 
