@@ -1,38 +1,37 @@
 <ion-content fullscreen>
   <div class="min-h-screen bg-slate-50 pb-36">
 
-    <!-- =============================== -->
-    <!-- Header con gradiente -->
-    <!-- =============================== -->
-    <div class="inventory-header px-5 pb-6 pt-12">
-
+    <!-- Header limpio -->
+    <div class="bg-white px-5 pb-4 pt-12">
       <div class="flex items-center justify-between">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-widest text-indigo-300">ScanStock</p>
-          <h1 class="mt-1 text-3xl font-bold text-white">Inventarios</h1>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">ScanStock</p>
+          <h1 class="mt-0.5 text-2xl font-bold text-slate-900">Inventarios</h1>
         </div>
-        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm">
-          <ion-icon name="albums-outline" style="font-size: 22px; color: white;"></ion-icon>
+        <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50">
+          <ion-icon name="albums-outline" style="font-size: 20px; color: #2563eb;"></ion-icon>
         </div>
       </div>
 
-      <!-- Stats chips -->
+      <!-- Stats -->
       @if(!isLoading && inventories.length > 0) {
-        <div class="mt-4 flex gap-2">
-          <div class="rounded-xl bg-white/15 px-3 py-2 backdrop-blur-sm">
-            <span class="text-sm font-bold text-white">{{ inventories.length }}</span>
-            <span class="ml-1 text-xs text-white/70">{{ inventories.length === 1 ? 'inventario' : 'inventarios' }}</span>
+        <div class="mt-4 flex gap-3">
+          <div class="flex-1 rounded-2xl bg-blue-50 px-4 py-3">
+            <p class="text-[10px] font-bold uppercase tracking-wider text-blue-400">Total</p>
+            <p class="mt-0.5 text-2xl font-bold text-blue-700">{{ inventories.length }}</p>
+            <p class="text-[10px] text-blue-400">{{ inventories.length === 1 ? 'inventario' : 'inventarios' }}</p>
           </div>
-          <div class="rounded-xl bg-white/15 px-3 py-2 backdrop-blur-sm">
-            <span class="text-sm font-bold text-white">{{ inventories.length }}</span>
-            <span class="ml-1 text-xs text-white/70">activos</span>
+          <div class="flex-1 rounded-2xl bg-emerald-50 px-4 py-3">
+            <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Activos</p>
+            <p class="mt-0.5 text-2xl font-bold text-emerald-700">{{ inventories.length }}</p>
+            <p class="text-[10px] text-emerald-400">en progreso</p>
           </div>
         </div>
       }
 
-      <!-- Search bar -->
-      <div class="mt-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-sm">
-        <ion-icon name="search-outline" style="font-size: 18px; color: #94a3b8; flex-shrink: 0;"></ion-icon>
+      <!-- Buscador -->
+      <div class="mt-4 flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+        <ion-icon name="search-outline" style="font-size: 17px; color: #94a3b8; flex-shrink: 0;"></ion-icon>
         <input
           type="text"
           [ngModel]="searchQuery()"
@@ -42,44 +41,33 @@
         />
         @if(searchQuery().length > 0) {
           <ion-button fill="clear" color="medium" size="small" (click)="clearSearch()"
-            style="--padding-start: 4px; --padding-end: 4px; margin: 0;">
-            <ion-icon slot="icon-only" name="close-outline" style="font-size: 18px;"></ion-icon>
+            style="--padding-start: 2px; --padding-end: 2px; margin: 0; height: 24px;">
+            <ion-icon slot="icon-only" name="close-outline" style="font-size: 16px;"></ion-icon>
           </ion-button>
         }
       </div>
-
     </div>
 
-    <!-- =============================== -->
-    <!-- Content -->
-    <!-- =============================== -->
+    <!-- Lista -->
     <div class="px-5 pt-4">
 
-      <!-- Loading -->
       @if(isLoading) {
         <div class="flex items-center justify-center py-20">
-          <div class="flex flex-col items-center gap-3">
-            <div class="h-8 w-8 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent"></div>
-            <p class="text-sm text-slate-400">Cargando...</p>
-          </div>
+          <div class="h-8 w-8 animate-spin rounded-full border-2 border-blue-500 border-t-transparent"></div>
         </div>
       }
 
-      <!-- Empty sin búsqueda -->
       @else if(inventories.length === 0) {
-        <div class="flex flex-col items-center justify-center py-20 text-center">
-          <div class="mb-5 flex h-24 w-24 items-center justify-center rounded-3xl bg-indigo-50">
-            <ion-icon name="albums-outline" style="font-size: 44px; color: #a5b4fc;"></ion-icon>
+        <div class="flex flex-col items-center justify-center py-24 text-center">
+          <div class="mb-5 flex h-20 w-20 items-center justify-center rounded-3xl bg-blue-50">
+            <ion-icon name="albums-outline" style="font-size: 38px; color: #93c5fd;"></ion-icon>
           </div>
-          <h2 class="text-xl font-bold text-slate-900">Sin inventarios</h2>
+          <h2 class="text-lg font-bold text-slate-900">Sin inventarios</h2>
           <p class="mt-2 max-w-xs text-sm leading-relaxed text-slate-500">
             Crea tu primer inventario para comenzar a contar productos.
           </p>
-          <ion-button
-            color="primary"
-            (click)="openCreateModal()"
-            style="margin-top: 24px; --border-radius: 14px; --box-shadow: none; font-weight: 600;"
-          >
+          <ion-button color="primary" (click)="openCreateModal()"
+            style="margin-top: 20px; --border-radius: 14px; --box-shadow: none; font-weight: 600;">
             <ion-icon slot="start" name="add-outline"></ion-icon>
             Crear inventario
           </ion-button>
@@ -87,28 +75,15 @@
       }
 
       @else {
-
-        <!-- Sin resultados en búsqueda -->
         @if(filteredInventories().length === 0) {
-          <div class="flex flex-col items-center justify-center py-16 text-center">
-            <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100">
-              <ion-icon name="search-outline" style="font-size: 28px; color: #cbd5e1;"></ion-icon>
-            </div>
-            <p class="text-sm font-semibold text-slate-900">Sin resultados</p>
-            <p class="mt-1 text-xs text-slate-400">
-              No hay inventarios con "{{ searchQuery() }}"
-            </p>
+          <div class="flex flex-col items-center py-16 text-center">
+            <p class="text-sm font-semibold text-slate-700">Sin resultados</p>
+            <p class="mt-1 text-xs text-slate-400">No hay inventarios con "{{ searchQuery() }}"</p>
           </div>
-        }
-
-        <!-- Lista -->
-        @else {
-          <div class="mb-3 flex items-center justify-between">
-            <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">
-              {{ searchQuery() ? filteredInventories().length + ' resultado' + (filteredInventories().length > 1 ? 's' : '') : 'Todos' }}
-            </p>
-          </div>
-
+        } @else {
+          <p class="mb-3 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+            {{ searchQuery() ? filteredInventories().length + ' resultado' + (filteredInventories().length !== 1 ? 's' : '') : 'Recientes' }}
+          </p>
           <div class="flex flex-col gap-3">
             @for(inventory of filteredInventories(); track inventory.id) {
               <app-inventory-card
@@ -119,7 +94,6 @@
             }
           </div>
         }
-
       }
 
     </div>

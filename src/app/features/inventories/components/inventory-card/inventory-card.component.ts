@@ -9,7 +9,7 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { IonIcon } from '@ionic/angular/standalone';
+import { IonIcon, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { ellipsisHorizontalOutline, arrowForwardOutline } from 'ionicons/icons';
 
@@ -24,7 +24,7 @@ import { InventoryService } from '../../../../core/services/inventory.service';
 
   standalone: true,
 
-  imports: [CommonModule, IonIcon],
+  imports: [CommonModule, IonIcon, IonButton],
 
   templateUrl: './inventory-card.component.html',
 
