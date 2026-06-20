@@ -6,7 +6,7 @@
 
     @if(inventory(); as inventory) {
 
-    <app-inventory-header [inventory]="inventory" />
+    <app-inventory-header [inventory]="inventory" (options)="openInventoryOptions()" />
 
     }
 

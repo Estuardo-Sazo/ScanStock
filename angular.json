@@ -42,7 +42,9 @@
             "scripts": [],
             "browser": "src/main.ts",
             "allowedCommonJsDependencies": [
-              "@zxing/library"
+              "@zxing/library",
+              "xlsx",
+              "fflate"
             ]
           },
           "configurations": {
