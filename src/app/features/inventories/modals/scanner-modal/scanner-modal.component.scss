@@ -1,0 +1,235 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.scanner-host {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+.scanner-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay */
+.scanner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.scanner-middle {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.scanner-shade {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.58);
+}
+
+/* Viewfinder box */
+.viewfinder {
+  position: relative;
+  width: 290px;
+  height: 210px;
+  flex-shrink: 0;
+}
+
+/* Corner brackets */
+.corner {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-color: #60a5fa;
+  border-style: solid;
+}
+
+.corner-tl {
+  top: 0;
+  left: 0;
+  border-width: 3px 0 0 3px;
+  border-radius: 5px 0 0 0;
+}
+
+.corner-tr {
+  top: 0;
+  right: 0;
+  border-width: 3px 3px 0 0;
+  border-radius: 0 5px 0 0;
+}
+
+.corner-bl {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 3px 3px;
+  border-radius: 0 0 0 5px;
+}
+
+.corner-br {
+  bottom: 0;
+  right: 0;
+  border-width: 0 3px 3px 0;
+  border-radius: 0 0 5px 0;
+}
+
+/* Animated scan line */
+.scan-line {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #3b82f6 20%, #60a5fa 50%, #3b82f6 80%, transparent);
+  box-shadow: 0 0 8px 2px rgba(96, 165, 250, 0.5);
+  animation: scan-move 2s ease-in-out infinite;
+}
+
+@keyframes scan-move {
+  0%   { top: 8px; opacity: 0.7; }
+  50%  { top: calc(100% - 8px); opacity: 1; }
+  100% { top: 8px; opacity: 0.7; }
+}
+
+/* Top bar */
+.scanner-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 52px 20px 16px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+}
+
+.scanner-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.scanner-close-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scanner-close-btn:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Bottom controls */
+.scanner-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 20px 52px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+}
+
+.scanner-hint {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  text-align: center;
+}
+
+.scanner-switch-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  ion-icon {
+    font-size: 18px;
+  }
+}
+
+.scanner-switch-btn:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Error state */
+.scanner-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 32px;
+}
+
+.scanner-error-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.scanner-error-icon {
+  font-size: 48px;
+  color: #f87171;
+}
+
+.scanner-error-text {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 260px;
+}
+
+.scanner-retry-btn {
+  margin-top: 4px;
+  padding: 12px 28px;
+  border-radius: 14px;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scanner-retry-btn:active {
+  background: #2563eb;
+}

@@ -20,8 +20,8 @@ import { ProductService } from '../../../../core/services/product';
 import { Product } from '../../../../core/database/app-db';
 
 import { ProductFormModalComponent } from '../../modals/product-form-modal/product-form-modal.component';
-
 import { QuantityInputModalComponent } from '../../modals/quantity-input-modal/quantity-input-modal.component';
+import { ScannerModalComponent } from '../../modals/scanner-modal/scanner-modal.component';
 
 // =========================================
 // Components
@@ -146,18 +146,14 @@ export class InventoryDetailPage implements OnInit {
   // =========================================
 
   async openScanner() {
-    // =====================================
-    // TEMP
-    // Simular barcode
-    // =====================================
-
-    const barcode = prompt('Escanea o ingresa código');
-
-    if (!barcode) {
-      return;
+    const modal = await this.modalController.create({
+      component: ScannerModalComponent,
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (role === 'confirm' && data?.barcode) {
+      await this.handleBarcode(data.barcode);
     }
-
-    await this.handleBarcode(barcode);
   }
   // =========================================
   // Quantity Modal

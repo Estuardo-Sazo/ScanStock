@@ -1,0 +1,72 @@
+<div class="scanner-host">
+
+  <!-- Camera feed -->
+  <video #video class="scanner-video" playsinline autoplay muted></video>
+
+  <!-- Dark overlay with viewfinder cutout -->
+  @if(!error()) {
+    <div class="scanner-overlay">
+
+      <!-- Top shade -->
+      <div class="scanner-shade"></div>
+
+      <!-- Middle row -->
+      <div class="scanner-middle">
+        <div class="scanner-shade"></div>
+
+        <!-- Viewfinder -->
+        <div class="viewfinder">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+          @if(scanning()) {
+            <div class="scan-line"></div>
+          }
+        </div>
+
+        <div class="scanner-shade"></div>
+      </div>
+
+      <!-- Bottom shade -->
+      <div class="scanner-shade"></div>
+
+    </div>
+  }
+
+  <!-- Top bar -->
+  <div class="scanner-topbar">
+    <p class="scanner-title">Escanear código</p>
+    <button class="scanner-close-btn" (click)="close()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+
+  <!-- Bottom controls -->
+  <div class="scanner-bottom">
+    @if(!error()) {
+      <p class="scanner-hint">Apunta la cámara al código de barras</p>
+
+      @if(hasMultipleCameras) {
+        <button class="scanner-switch-btn" (click)="switchCamera()">
+          <ion-icon name="camera-reverse-outline"></ion-icon>
+          <span>Cambiar cámara</span>
+        </button>
+      }
+    }
+  </div>
+
+  <!-- Error state -->
+  @if(error()) {
+    <div class="scanner-error">
+      <div class="scanner-error-box">
+        <ion-icon name="alert-circle-outline" class="scanner-error-icon"></ion-icon>
+        <p class="scanner-error-text">{{ error() }}</p>
+        <button class="scanner-retry-btn" (click)="initScanner()">
+          Reintentar
+        </button>
+      </div>
+    </div>
+  }
+
+</div>
