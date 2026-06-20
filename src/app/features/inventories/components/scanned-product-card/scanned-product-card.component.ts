@@ -7,16 +7,9 @@ import {
 
 import { CommonModule } from '@angular/common';
 
-import {
-  IonIcon,
-} from '@ionic/angular/standalone';
-
+import { IonIcon, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-
-import {
-  createOutline,
-  trashOutline,
-} from 'ionicons/icons';
+import { createOutline, trashOutline } from 'ionicons/icons';
 
 import {
   InventoryItem,
@@ -27,10 +20,7 @@ import {
 
   standalone: true,
 
-  imports: [
-    CommonModule,
-    IonIcon,
-  ],
+  imports: [CommonModule, IonIcon, IonButton],
 
   templateUrl: './scanned-product-card.component.html',
 })

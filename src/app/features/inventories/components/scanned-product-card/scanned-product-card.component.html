@@ -1,43 +1,37 @@
-<div class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100">
-  <div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-slate-100">
 
-    <!-- Info -->
-    <div class="min-w-0 flex-1">
-      <h2 class="truncate text-base font-semibold text-slate-900">
-        {{ item.productNameSnapshot || 'Producto sin nombre' }}
-      </h2>
-
-      @if(item.skuSnapshot || item.barcodeSnapshot) {
-        <p class="mt-0.5 text-xs text-slate-400">
-          {{ item.skuSnapshot ? 'SKU: ' + item.skuSnapshot : item.barcodeSnapshot }}
-        </p>
-      }
-    </div>
-
-    <!-- Quantity badge -->
-    <div class="flex flex-col items-end shrink-0">
-      <span class="text-3xl font-bold text-blue-600 leading-none">{{ item.quantity }}</span>
-      <span class="mt-0.5 text-[10px] font-medium uppercase tracking-wider text-slate-400">uds.</span>
-    </div>
-
+  <!-- Info -->
+  <div class="min-w-0 flex-1">
+    <p class="truncate text-sm font-semibold text-slate-900">
+      {{ item.productNameSnapshot || 'Producto sin nombre' }}
+    </p>
+    @if(item.skuSnapshot || item.barcodeSnapshot) {
+      <p class="mt-0.5 truncate text-xs text-slate-400">
+        {{ item.skuSnapshot ? 'SKU: ' + item.skuSnapshot : item.barcodeSnapshot }}
+      </p>
+    }
   </div>
+
+  <!-- Quantity -->
+  <div class="shrink-0 text-right">
+    <span class="text-2xl font-bold leading-none text-blue-600">{{ item.quantity }}</span>
+    <span class="ml-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-400">uds</span>
+  </div>
+
+  <!-- Divider -->
+  <div class="h-8 w-px shrink-0 bg-slate-100"></div>
 
   <!-- Actions -->
-  <div class="mt-4 flex justify-end gap-2 border-t border-slate-50 pt-3">
-    <button
-      (click)="edit.emit(item)"
-      class="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition active:scale-95"
-      title="Editar cantidad"
-    >
-      <ion-icon name="create-outline" class="text-lg"></ion-icon>
-    </button>
+  <div class="flex shrink-0 gap-1.5">
+    <ion-button fill="clear" color="primary" size="small" (click)="edit.emit(item)" title="Editar cantidad"
+      style="--padding-start: 8px; --padding-end: 8px; --border-radius: 10px;">
+      <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+    </ion-button>
 
-    <button
-      (click)="delete.emit(item)"
-      class="flex h-9 w-9 items-center justify-center rounded-xl bg-red-50 text-red-500 transition active:scale-95"
-      title="Eliminar"
-    >
-      <ion-icon name="trash-outline" class="text-lg"></ion-icon>
-    </button>
+    <ion-button fill="clear" color="danger" size="small" (click)="delete.emit(item)" title="Eliminar"
+      style="--padding-start: 8px; --padding-end: 8px; --border-radius: 10px;">
+      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+    </ion-button>
   </div>
+
 </div>
