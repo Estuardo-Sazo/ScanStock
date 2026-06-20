@@ -34,21 +34,19 @@
 
       <!-- Barcode -->
       <div>
-        <label class="mb-1.5 block text-sm font-semibold text-slate-700">Código de barras</label>
+        <label class="mb-1.5 block text-sm font-semibold text-slate-700">
+          Código de barras
+          <span class="ml-1 font-normal text-slate-400">(opcional)</span>
+        </label>
         <div class="relative">
           <ion-icon name="barcode-outline" class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-lg text-slate-400"></ion-icon>
           <input
             type="text"
             formControlName="barcode"
             placeholder="Ej: 7501234567890"
-            class="w-full rounded-2xl border bg-white py-3.5 pl-11 pr-4 text-sm text-slate-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-            [class.border-slate-200]="!(form.get('barcode')?.invalid && form.get('barcode')?.touched)"
-            [class.border-red-300]="form.get('barcode')?.invalid && form.get('barcode')?.touched"
+            class="w-full rounded-2xl border border-slate-200 bg-white py-3.5 pl-11 pr-4 text-sm text-slate-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
           />
         </div>
-        @if(form.get('barcode')?.invalid && form.get('barcode')?.touched) {
-          <p class="mt-1 text-xs text-red-500">El código es requerido</p>
-        }
       </div>
 
       <!-- Nombre -->

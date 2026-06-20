@@ -30,7 +30,7 @@ export class ProductFormModalComponent implements OnInit {
   get isEditMode() { return !!this.productToEdit; }
 
   form = this.fb.group({
-    barcode: ['', Validators.required],
+    barcode: [''],
     name: ['', [Validators.required, Validators.minLength(2)]],
     sku: [''],
     price: [null as number | null],
@@ -41,7 +41,7 @@ export class ProductFormModalComponent implements OnInit {
     addIcons({ closeOutline, barcodeOutline, cubeOutline, pricetagOutline, alertCircleOutline, createOutline });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.productToEdit) {
       this.form.patchValue({
         barcode: this.productToEdit.barcode ?? '',
@@ -51,8 +51,15 @@ export class ProductFormModalComponent implements OnInit {
         cost: this.productToEdit.cost ?? null,
       });
     } else {
-      this.form.patchValue({ barcode: this.barcode });
+      const autoSku = await this.generateSku();
+      this.form.patchValue({ barcode: this.barcode, sku: autoSku });
     }
+  }
+
+  private async generateSku(): Promise<string> {
+    const all = await this.productService.getAll();
+    const next = all.length + 1;
+    return `PROD-${String(next).padStart(3, '0')}`;
   }
 
   async submit() {
