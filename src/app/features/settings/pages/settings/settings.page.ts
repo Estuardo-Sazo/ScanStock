@@ -13,6 +13,7 @@ import {
   closeOutline,
   shieldCheckmarkOutline,
   globeOutline,
+  chevronForwardOutline,
 } from 'ionicons/icons';
 
 import { CURRENCIES, Currency, SettingsService } from '../../../../core/services/settings.service';
@@ -68,7 +69,7 @@ export class SettingsPage {
     addIcons({
       settingsOutline, cashOutline, checkmarkCircle, ellipseOutline,
       informationCircleOutline, searchOutline, closeOutline,
-      shieldCheckmarkOutline, globeOutline,
+      shieldCheckmarkOutline, globeOutline, chevronForwardOutline,
     });
   }
 }
