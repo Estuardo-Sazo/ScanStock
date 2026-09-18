@@ -22,6 +22,7 @@ export class ProductFormModalComponent implements OnInit {
   private productService = inject(ProductService);
 
   @Input() barcode = '';
+  @Input() name = '';
   /** Si se pasa, activa el modo edición */
   @Input() productToEdit: Product | null = null;
 
@@ -52,7 +53,7 @@ export class ProductFormModalComponent implements OnInit {
       });
     } else {
       const autoSku = await this.generateSku();
-      this.form.patchValue({ barcode: this.barcode, sku: autoSku });
+      this.form.patchValue({ barcode: this.barcode, name: this.name, sku: autoSku });
     }
   }
 

@@ -27,6 +27,11 @@ export class InventorySearchBarComponent {
   @Output()
   scan = new EventEmitter<void>();
 
+  @Input()
+  set value(v: string) {
+    this.query = v ?? '';
+  }
+
   query = '';
 
   constructor() {

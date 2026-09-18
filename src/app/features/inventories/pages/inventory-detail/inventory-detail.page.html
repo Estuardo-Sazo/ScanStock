@@ -15,6 +15,7 @@
     <!-- ===================================== -->
 
     <app-inventory-search-bar
+      [value]="search()"
       (search)="onSearch($event)"
       (scan)="openScanner()"
     />

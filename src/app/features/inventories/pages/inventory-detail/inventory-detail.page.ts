@@ -123,10 +123,10 @@ export class InventoryDetailPage implements OnInit {
   }
 
   // ── Create Product ───────────────────────────────────────────────────────
-  async openCreateProductModal(barcode: string) {
+  async openCreateProductModal(prefill: { barcode?: string; name?: string }) {
     const modal = await this.modalController.create({
       component: ProductFormModalComponent,
-      componentProps: { barcode },
+      componentProps: { barcode: prefill.barcode ?? '', name: prefill.name ?? '' },
     });
     await modal.present();
     const { data, role } = await modal.onWillDismiss();
@@ -317,7 +317,7 @@ export class InventoryDetailPage implements OnInit {
     try {
       const product = await this.productService.findProduct(barcode);
       if (product) { this.openQuantityModal(product); return; }
-      await this.openCreateProductModal(barcode);
+      await this.openCreateProductModal({ barcode });
     } catch (error) {
       console.error('Error handling barcode:', error);
     }
@@ -378,6 +378,7 @@ export class InventoryDetailPage implements OnInit {
     const term = this.search();
     if (!term) return;
     this.searchResults.set([]);
-    await this.openCreateProductModal(term);
+    this.search.set('');
+    await this.openCreateProductModal({ name: term });
   }
 }
