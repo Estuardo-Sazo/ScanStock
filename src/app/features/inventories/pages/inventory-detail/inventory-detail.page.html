@@ -6,7 +6,7 @@
 
     @if(inventory(); as inventory) {
 
-    <app-inventory-header [inventory]="inventory" (options)="openInventoryOptions()" />
+    <app-inventory-header [inventory]="inventory" />
 
     }
 
@@ -143,4 +143,4 @@
 <!-- Bottom Navbar -->
 <!-- ===================================== -->
 
-<app-bottom-navbar (scan)="openScanner()" />
+<app-bottom-navbar (scan)="openScanner()" (options)="openInventoryOptions()" />

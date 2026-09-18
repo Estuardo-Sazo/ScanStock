@@ -13,13 +13,15 @@ import {
   settings,
   scanOutline,
   timeOutline,
+  ellipsisHorizontalOutline,
 } from 'ionicons/icons';
 
 interface NavTab {
   label: string;
   icon: string;
   activeIcon: string;
-  route: string;
+  route?: string;
+  action?: 'options';
 }
 
 @Component({
@@ -32,6 +34,7 @@ export class BottomNavbarComponent {
   private router = inject(Router);
 
   @Output() scan = new EventEmitter<void>();
+  @Output() options = new EventEmitter<void>();
 
   // =========================================
   // Main tabs
@@ -71,10 +74,10 @@ export class BottomNavbarComponent {
     },
 
     {
-      label: 'Ajustes',
-      icon: settingsOutline,
-      activeIcon: settings,
-      route: '/settings',
+      label: 'Opciones',
+      icon: ellipsisHorizontalOutline,
+      activeIcon: ellipsisHorizontalOutline,
+      action: 'options',
     },
   ];
 
@@ -100,6 +103,7 @@ export class BottomNavbarComponent {
       settings,
       scanOutline,
       timeOutline,
+      ellipsisHorizontalOutline,
     });
   }
 
@@ -115,7 +119,7 @@ export class BottomNavbarComponent {
   // Active state
   // =========================================
 
-  isActive(route: string): boolean {
-    return this.router.url.startsWith(route);
+  isActive(route?: string): boolean {
+    return !!route && this.router.url.startsWith(route);
   }
 }
