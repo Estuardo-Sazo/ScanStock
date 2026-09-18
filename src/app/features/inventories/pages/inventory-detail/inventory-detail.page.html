@@ -18,6 +18,7 @@
       [value]="search()"
       (search)="onSearch($event)"
       (scan)="openScanner()"
+      (add)="openCreateProductModal({})"
     />
 
     @if(search().trim().length > 0) {

@@ -27,6 +27,9 @@ export class InventorySearchBarComponent {
   @Output()
   scan = new EventEmitter<void>();
 
+  @Output()
+  add = new EventEmitter<void>();
+
   @Input()
   set value(v: string) {
     this.query = v ?? '';
@@ -48,5 +51,9 @@ export class InventorySearchBarComponent {
 
   openScanner() {
     this.scan.emit();
+  }
+
+  addProduct() {
+    this.add.emit();
   }
 }
