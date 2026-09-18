@@ -1,5 +1,5 @@
 <ion-content fullscreen>
-  <div class="flex h-full min-h-screen flex-col bg-white">
+  <div class="flex flex-col bg-white">
 
     <!-- Header -->
     <div class="flex items-start justify-between border-b border-slate-100 px-5 pb-4 pt-5">
@@ -23,7 +23,7 @@
       </ion-button>
     </div>
 
-    <div class="flex flex-1 flex-col px-4 pt-4">
+    <div class="flex flex-col px-4 pt-4">
 
       <!-- Display -->
       <p class="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">
@@ -95,18 +95,18 @@
       </div>
     </div>
 
-    <!-- Confirm button -->
-    <div class="px-4 pb-8 pt-4">
-      <ion-button
-        expand="block"
-        color="primary"
-        [disabled]="numericValue <= 0"
-        (click)="confirm()"
-        style="--border-radius: 16px; height: 56px; font-size: 16px; font-weight: 600; --box-shadow: none;"
-      >
-        {{ confirmLabel }}
-      </ion-button>
-    </div>
-
   </div>
 </ion-content>
+<ion-footer>
+  <div class="px-4 pb-8 pt-4">
+    <ion-button
+      expand="block"
+      color="primary"
+      [disabled]="numericValue <= 0"
+      (click)="confirm()"
+      style="--border-radius: 16px; height: 56px; font-size: 16px; font-weight: 600; --box-shadow: none;"
+    >
+      {{ confirmLabel }}
+    </ion-button>
+  </div>
+</ion-footer>

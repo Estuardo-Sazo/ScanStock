@@ -1,5 +1,5 @@
 <ion-content fullscreen>
-  <div class="flex min-h-screen flex-col bg-slate-50">
+  <div class="flex flex-col bg-slate-50">
 
     <!-- Header -->
     <div class="flex items-start justify-between border-b border-slate-100 bg-white px-5 pb-5 pt-6">
@@ -30,7 +30,7 @@
     </div>
 
     <!-- Form -->
-    <form [formGroup]="form" (ngSubmit)="submit()" class="flex-1 space-y-4 p-5">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4 p-5">
 
       <!-- Barcode -->
       <div>
@@ -116,18 +116,18 @@
 
     </form>
 
-    <!-- Footer -->
-    <div class="border-t border-slate-100 bg-white px-5 py-4">
-      <ion-button
-        expand="block"
-        color="primary"
-        [disabled]="form.invalid || isLoading"
-        (click)="submit()"
-        style="--border-radius: 16px; --box-shadow: none; height: 52px; font-size: 15px; font-weight: 600;"
-      >
-        {{ isLoading ? 'Guardando...' : (isEditMode ? 'Guardar cambios' : 'Crear producto') }}
-      </ion-button>
-    </div>
-
   </div>
 </ion-content>
+<ion-footer class="border-t border-slate-100 bg-white">
+  <div class="px-5 py-4">
+    <ion-button
+      expand="block"
+      color="primary"
+      [disabled]="form.invalid || isLoading"
+      (click)="submit()"
+      style="--border-radius: 16px; --box-shadow: none; height: 52px; font-size: 15px; font-weight: 600;"
+    >
+      {{ isLoading ? 'Guardando...' : (isEditMode ? 'Guardar cambios' : 'Crear producto') }}
+    </ion-button>
+  </div>
+</ion-footer>
