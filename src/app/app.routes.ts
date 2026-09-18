@@ -39,9 +39,4 @@ export const routes: Routes = [
         (m) => m.SettingsPage,
       ),
   },
-  {
-    path: 'scan',
-    redirectTo: 'inventories',
-    pathMatch: 'full',
-  },
 ];

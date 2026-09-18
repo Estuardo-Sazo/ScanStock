@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, EventEmitter, Output, computed, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonIcon } from '@ionic/angular/standalone';
@@ -15,6 +15,14 @@ import {
   timeOutline,
 } from 'ionicons/icons';
 
+interface NavTab {
+  label: string;
+  icon: string;
+  activeIcon: string;
+  route?: string;
+  action?: 'scan';
+}
+
 @Component({
   selector: 'app-bottom-navbar',
   standalone: true,
@@ -24,13 +32,15 @@ import {
 export class BottomNavbarComponent {
   private router = inject(Router);
 
+  @Output() scan = new EventEmitter<void>();
+
   // =========================================
   // Main tabs
   // =========================================
 
-  private mainTabs = [
+  private mainTabs: NavTab[] = [
     {
-      label: 'Invetarios',
+      label: 'Inventarios',
       icon: albumsOutline,
       activeIcon: albums,
       route: '/inventories',
@@ -53,23 +63,23 @@ export class BottomNavbarComponent {
   // Inventory tabs
   // =========================================
 
-  private inventoryTabs = [
+  private inventoryTabs: NavTab[] = [
     {
-      label: 'History',
+      label: 'Inventarios',
       icon: timeOutline,
       activeIcon: timeOutline,
       route: '/inventories',
     },
 
     {
-      label: 'Scan',
+      label: 'Escanear',
       icon: scanOutline,
       activeIcon: scanOutline,
-      route: '/scan',
+      action: 'scan' as const,
     },
 
     {
-      label: 'Settings',
+      label: 'Ajustes',
       icon: settingsOutline,
       activeIcon: settings,
       route: '/settings',
@@ -113,7 +123,7 @@ export class BottomNavbarComponent {
   // Active state
   // =========================================
 
-  isActive(route: string): boolean {
-    return this.router.url.startsWith(route);
+  isActive(route?: string): boolean {
+    return !!route && this.router.url.startsWith(route);
   }
 }
