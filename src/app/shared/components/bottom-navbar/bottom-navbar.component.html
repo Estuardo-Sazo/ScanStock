@@ -3,38 +3,38 @@
 >
   <div class="mx-auto flex max-w-md items-center justify-around">
     @for (tab of tabs(); track tab.label) {
-      @if (tab.action === 'scan') {
-        <button
-          type="button"
-          (click)="scan.emit()"
-          class="flex flex-col items-center justify-center gap-1 rounded-2xl px-5 py-2 transition-all duration-200"
-        >
-          <ion-icon [icon]="tab.icon" class="text-[22px] text-slate-500"></ion-icon>
-          <span class="text-[11px] font-semibold text-slate-500">{{ tab.label }}</span>
-        </button>
-      } @else {
-        <a
-          [routerLink]="tab.route"
-          class="flex flex-col items-center justify-center gap-1 rounded-2xl px-5 py-2 transition-all duration-200"
-          [class.bg-blue-50]="isActive(tab.route)"
-          [class.scale-105]="isActive(tab.route)"
-        >
-          <ion-icon
-            [icon]="isActive(tab.route) ? tab.activeIcon : tab.icon"
-            class="text-[22px]"
-            [class.text-blue-600]="isActive(tab.route)"
-            [class.text-slate-500]="!isActive(tab.route)"
-          ></ion-icon>
+      <a
+        [routerLink]="tab.route"
+        class="flex flex-col items-center justify-center gap-1 rounded-2xl px-5 py-2 transition-all duration-200"
+        [class.bg-blue-50]="isActive(tab.route)"
+        [class.scale-105]="isActive(tab.route)"
+      >
+        <ion-icon
+          [icon]="isActive(tab.route) ? tab.activeIcon : tab.icon"
+          class="text-[22px]"
+          [class.text-blue-600]="isActive(tab.route)"
+          [class.text-slate-500]="!isActive(tab.route)"
+        ></ion-icon>
 
-          <span
-            class="text-[11px] font-semibold"
-            [class.text-blue-600]="isActive(tab.route)"
-            [class.text-slate-500]="!isActive(tab.route)"
-          >
-            {{ tab.label }}
-          </span>
-        </a>
-      }
+        <span
+          class="text-[11px] font-semibold"
+          [class.text-blue-600]="isActive(tab.route)"
+          [class.text-slate-500]="!isActive(tab.route)"
+        >
+          {{ tab.label }}
+        </span>
+      </a>
     }
   </div>
+
+  @if (isInventoryDetail()) {
+    <button
+      type="button"
+      (click)="scan.emit()"
+      aria-label="Escanear código"
+      class="absolute left-1/2 top-0 z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center !rounded-full bg-blue-600 text-white shadow-lg shadow-blue-300/50 ring-[6px] ring-white transition-transform active:scale-95"
+    >
+      <ion-icon name="scan-outline" class="text-2xl"></ion-icon>
+    </button>
+  }
 </nav>

@@ -19,8 +19,7 @@ interface NavTab {
   label: string;
   icon: string;
   activeIcon: string;
-  route?: string;
-  action?: 'scan';
+  route: string;
 }
 
 @Component({
@@ -72,13 +71,6 @@ export class BottomNavbarComponent {
     },
 
     {
-      label: 'Escanear',
-      icon: scanOutline,
-      activeIcon: scanOutline,
-      action: 'scan' as const,
-    },
-
-    {
       label: 'Ajustes',
       icon: settingsOutline,
       activeIcon: settings,
@@ -123,7 +115,7 @@ export class BottomNavbarComponent {
   // Active state
   // =========================================
 
-  isActive(route?: string): boolean {
-    return !!route && this.router.url.startsWith(route);
+  isActive(route: string): boolean {
+    return this.router.url.startsWith(route);
   }
 }

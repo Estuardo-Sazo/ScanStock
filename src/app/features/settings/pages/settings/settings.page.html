@@ -46,7 +46,7 @@
           class="flex-1 bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
         />
         @if(searchQuery().length > 0) {
-          <button (click)="clearSearch()" class="flex h-5 w-5 items-center justify-center rounded-full bg-slate-200 text-slate-500">
+          <button (click)="clearSearch()" class="flex h-5 w-5 items-center justify-center !rounded-full bg-slate-200 text-slate-500">
             <ion-icon name="close-outline" style="font-size: 13px;"></ion-icon>
           </button>
         }
